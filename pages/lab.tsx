@@ -21,34 +21,39 @@ export default function Lab() {
           <h3 className="text-3xl font-serif">&quot;Lack of Choice&quot;</h3>
         </div>
 
-        {/* Card 3 — Dream AR */}
-        <div className="col-span-12 md:col-span-4 bg-card rounded-3xl border border-white/5 overflow-hidden relative">
+      {/* Card 3 — Dream AR */}
+<div className="col-span-12 md:col-span-4 bg-card rounded-3xl border border-white/5 overflow-hidden relative">
+  {/* 自动推断 basePath：本地是 ""，GitHub Pages 是 "/create-react-app-my-portfolio" */}
+  {(() => {
+    const isBrowser = typeof window !== "undefined";
+    const basePath = isBrowser ? (window.__NEXT_DATA__?.assetPrefix || "") : "";
 
-          {/* Title */}
-          <span className="absolute top-6 left-6 z-10 text-xs text-gray-400">
-            Dream AR
-          </span>
+    return (
+      <>
+        {/* Title */}
+        <span className="absolute top-6 left-6 z-10 text-xs text-gray-400">
+          Dream AR
+        </span>
 
-          {/* GIF */}
+        {/* GIF */}
         <img
-  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/lab/dream-ar.gif`}
-  alt="Dream AR travel experience"
-  className="absolute inset-0 w-full h-full object-cover opacity-90"
-/>
+          src={`${basePath}/lab/dream-ar.gif`}
+          alt="Dream AR travel experience"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
 
-          {/* Description */}
-          <span className="absolute bottom-6 left-6 right-6 z-10 text-xs text-gray-400 leading-relaxed">
-            Self-designed AR travel experience with dynamic visual effects.
-          </span>
+        {/* Description */}
+        <span className="absolute bottom-6 left-6 right-6 z-10 text-xs text-gray-400 leading-relaxed">
+          Self-designed AR travel experience with dynamic visual effects.
+        </span>
 
-          {/* Subtle overlay for readability */}
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
+        {/* Subtle overlay for readability */}
+        <div className="absolute inset-0 bg-black/20" />
+      </>
+    );
+  })()}
+</div>
 
-      </div>
-
-      <Navigation active="lab" />
-    </div>
   );
 }
 
