@@ -295,17 +295,15 @@ export default function About() {
     <div className="w-full mb-32">
       <div className="top-gradient-bar" />
 
-      {/* Header：保留全宽 */}
-      <div className="px-6 md:px-12">
+      {/* ✅ Header：全屏铺满（不要 px 包裹） */}
+      <div className="w-full">
         <Header />
       </div>
 
-      {/* Header 之外：毛玻璃容器（左对齐，宽度自适应屏幕） */}
-      <div className="px-6 md:px-12 mt-10">
+      {/* ✅ Header 之外：红圈容器（两侧圆角 + 仅顶部线 + 无底部边框） */}
+      <div className="w-full mt-10 px-4 md:px-8">
         <div className="glass-panel glass-panel-topline">
-          {/* 左对齐主内容：不要 mx-auto，直接用 max-w + 留白 */}
-          <div className="max-w-5xl">
-            {/* Where I've worked */}
+          <div className="glass-panel-inner">
             <section className="mb-24">
               <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
 
@@ -313,7 +311,6 @@ export default function About() {
 
               {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
 
-              {/* Available for projects：白字 + 白色发光描边 */}
               <div className="mt-12 inline-flex items-center gap-4 px-6 py-4 rounded-full text-white neon-pill bg-white/5 backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full neon-dot" />
                 <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
@@ -322,15 +319,12 @@ export default function About() {
               </div>
             </section>
 
-            {/* Skills */}
             <section className="mb-20">
               <h2 className="text-lg mb-8">Skills & capabilities</h2>
               <div className="border-t border-white/10 pt-8 space-y-10">
                 {skillGroups.map((group) => (
                   <div key={group.title}>
-                    <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
-                      {group.title}
-                    </h3>
+                    <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
                     <SkillPills skills={group.skills} />
                   </div>
                 ))}
@@ -344,3 +338,4 @@ export default function About() {
     </div>
   );
 }
+
