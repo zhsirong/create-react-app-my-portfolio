@@ -1,7 +1,16 @@
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 
-const experiences = [
+type Experience = {
+  org: string;
+  role: string;
+  type?: string;
+  dates: string;
+  location?: string;
+  summary: string[];
+};
+
+const experiences: Experience[] = [
   {
     org: 'Michigan Ross Business+Tech',
     role: 'Generalist Final Top3 Team',
@@ -16,7 +25,7 @@ const experiences = [
   },
   {
     org: 'Articares',
-    role: 'Product & Marketing Coordinator（Hands-On)',
+    role: 'Product & Marketing Coordinator (Hands-On)',
     type: 'Full-time',
     dates: 'Feb 2025 – Sep 2025',
     location: 'Singapore',
@@ -29,9 +38,7 @@ const experiences = [
   {
     org: 'Initium.AI Inc.',
     role: 'UX Research Consultant',
-    type: '',
     dates: 'Jan 2025 – May 2025',
-    location: '',
     summary: [
       'Conducted UX research and heuristic evaluation to identify usability gaps across core product flows.',
       'Synthesized findings into clear recommendations to improve clarity, trust, and task success.',
@@ -40,7 +47,6 @@ const experiences = [
   {
     org: 'University of Michigan – Ross School of Business',
     role: 'Data Specialist | Ross Business + Tech Datathon',
-    type: '',
     dates: 'Feb 2025',
     location: 'Ann Arbor, Michigan',
     summary: [
@@ -64,7 +70,6 @@ const experiences = [
   {
     org: 'University of Michigan',
     role: 'Student Consultant',
-    type: '',
     dates: 'Oct 2023 – May 2024',
     location: 'Ann Arbor, Michigan',
     summary: [
@@ -76,7 +81,6 @@ const experiences = [
   {
     org: 'Qingyun Chinese Fork Music Club',
     role: 'Graphic / Project Designer',
-    type: '',
     dates: 'Sep 2023 – Mar 2024',
     location: 'Ann Arbor, Michigan',
     summary: [
@@ -123,7 +127,12 @@ const experiences = [
   },
 ];
 
-const skillGroups = [
+type SkillGroup = {
+  title: string;
+  skills: string[];
+};
+
+const skillGroups: SkillGroup[] = [
   {
     title: 'Product & Business',
     skills: [
@@ -209,7 +218,6 @@ function SkillPills({ skills }: SkillPillsProps) {
   );
 }
 
-
 export default function About() {
   return (
     <div className="max-w-4xl mx-auto px-6 mb-32">
@@ -217,37 +225,50 @@ export default function About() {
 
       <Header />
 
-      {/* Work Experience */}
-      <section className="mb-20">
-        <h2 className="text-lg mb-8">Work experience</h2>
+      {/* Work Experience (timeline blocks) */}
+      <section className="mb-24">
+        <h2 className="text-lg mb-12">Work experience</h2>
 
-        <div className="border-t border-white/10">
+        <div className="relative border-l border-white/10 pl-10 space-y-20">
           {experiences.map((exp, idx) => (
-            <div key={`${exp.org}-${exp.role}-${idx}`} className="py-6 border-b border-white/5">
-              <div className="flex items-baseline justify-between gap-6">
+            <div key={`${exp.org}-${exp.role}-${idx}`} className="relative">
+              {/* timeline dot */}
+              <span className="absolute -left-[9px] top-2 h-4 w-4 rounded-full bg-white/30" />
+
+              {/* header */}
+              <div className="flex justify-between items-start mb-4 gap-6">
                 <div className="min-w-0">
-                  <div className="text-sm uppercase tracking-tighter">
-                    <span className="text-white">{exp.org}</span>
-                    <span className="text-gray-500"> · {exp.role}</span>
-                    {exp.type ? <span className="text-gray-600"> · {exp.type}</span> : null}
+                  <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
+                    {exp.org}
                   </div>
+
+                  <div className="text-base text-white">
+                    {exp.role}
+                    {exp.type ? <span className="text-gray-500 text-sm"> · {exp.type}</span> : null}
+                  </div>
+
+                  {exp.location ? (
+                    <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
+                  ) : null}
                 </div>
 
-                <div className="text-xs text-gray-500 whitespace-nowrap">{exp.dates}</div>
+                <div className="text-sm text-gray-500 whitespace-nowrap">{exp.dates}</div>
               </div>
 
-              {exp.location ? <div className="mt-2 text-xs text-gray-500">{exp.location}</div> : null}
-
-              <div className="mt-3 space-y-2 text-sm text-gray-400 leading-relaxed max-w-2xl">
-                {exp.summary.map((line) => (
-                  <p key={line}>{line}</p>
+              {/* bullets */}
+              <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
+                {exp.summary.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
+        <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
           Available for projects
         </div>
       </section>
@@ -270,3 +291,4 @@ export default function About() {
     </div>
   );
 }
+
