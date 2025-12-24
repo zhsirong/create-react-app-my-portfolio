@@ -125,3 +125,39 @@ body {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
 }
+/* About 页大毛玻璃内容容器 */
+.glass-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.015) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border-radius: 24px 24px 0 0;
+
+  /* ❗关键：没有任何 border */
+  border: none;
+}
+
+/* 只加顶部那条线（模拟原版） */
+.glass-panel-topline {
+  position: relative;
+}
+
+.glass-panel-topline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.35)
+  );
+}
+
