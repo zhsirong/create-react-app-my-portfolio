@@ -13,8 +13,7 @@ type Experience = {
   context: string;
   // 用于你自己的 Work experience bullets（如果你还要保留）可不填
   summary?: string[];
-};
-
+}
 const experiences: Experience[] = [
   {
     org: 'Michigan Ross Business+Tech',
