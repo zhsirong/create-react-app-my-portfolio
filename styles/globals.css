@@ -127,10 +127,22 @@ body {
 }
 
 /* 只加顶部那条线（模拟原版） */
-.glass-panel-topline {
+/* 红圈那块：两侧圆角 + 毛玻璃 + 只有顶部细线；没有底边框 */
+.glass-panel {
   position: relative;
+  width: 100%;
+  border: none;                /* ✅ 没有整圈边框 */
+  border-bottom: none;         /* ✅ 没有底边框 */
+  box-shadow: none;            /* ✅ 不要整圈阴影 */
+  border-radius: 24px;         /* ✅ 两侧圆角 */
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
 }
 
+/* 只画顶部那条线（原版就是这种感觉） */
 .glass-panel-topline::before {
   content: '';
   position: absolute;
@@ -140,11 +152,41 @@ body {
   height: 1px;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.35),
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.35)
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.25)
   );
 }
+
+/* 容器内部留白（内容区宽度控制） */
+.glass-panel-inner {
+  padding: 28px 28px 34px;
+  max-width: 1200px;  /* 你想更宽就调大，比如 1400px */
+}
+
+/* 大屏时让内容靠左并留出右侧“空场” */
+@media (min-width: 1024px) {
+  .glass-panel-inner {
+    padding: 34px 38px 44px;
+    margin-left: 0;   /* ✅ 左对齐，不居中 */
+  }
+}
+
+/* Available for projects：白色发光描边 + 绿点发光 */
+.neon-pill {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 24px rgba(255, 255, 255, 0.12);
+}
+
+.neon-dot {
+  background: #22c55e;
+  box-shadow:
+    0 0 6px rgba(34, 197, 94, 0.9),
+    0 0 14px rgba(34, 197, 94, 0.6);
+}
+
 .neon-pill {
   border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow:
