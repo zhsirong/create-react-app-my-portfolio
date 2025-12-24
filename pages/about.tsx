@@ -295,18 +295,25 @@ export default function About() {
     <div className="w-full mb-32">
       <div className="top-gradient-bar" />
 
-      {/* Header 全宽 */}
-      <div className="px-6">
+      {/* Header 依然可以全宽 */}
+      <div className="px-12">
         <Header />
       </div>
 
-      {/* 主内容区：自适应 + 限宽阅读 */}
-      <div className="mx-auto max-w-5xl px-6">
-        {/* Where I've worked */}
+      {/* 左对齐主内容 */}
+      <div className="pl-24 pr-12 max-w-4xl">
         <section className="mb-24">
-          <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
+          <h2 className="text-4xl md:text-5xl tracking-tight">
+            Where I&apos;ve worked
+          </h2>
+
           <WorkSwitcher mode={mode} setMode={setMode} />
-          {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
+
+          {mode === 'context' ? (
+            <ContextView items={experiences} />
+          ) : (
+            <ListView items={experiences} />
+          )}
 
           <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
             <span className="h-2 w-2 rounded-full bg-green-400" />
@@ -322,7 +329,9 @@ export default function About() {
           <div className="border-t border-white/10 pt-8 space-y-10">
             {skillGroups.map((group) => (
               <div key={group.title}>
-                <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
+                <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+                  {group.title}
+                </h3>
                 <SkillPills skills={group.skills} />
               </div>
             ))}
@@ -334,3 +343,4 @@ export default function About() {
     </div>
   );
 }
+
