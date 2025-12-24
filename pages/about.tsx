@@ -222,56 +222,58 @@ export default function About() {
 
       {/* Work Experience – timeline */}
       <section className="mb-24">
-        <h2 className="text-lg mb-12">Work experience</h2>
+  <h2 className="text-lg mb-12">Work experience</h2>
 
-        <div className="relative pl-12">
-          {/* vertical line */}
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
+  {/* wrapper */}
+  <div className="relative">
+    {/* vertical line (fixed x position) */}
+    <div className="absolute left-6 top-0 bottom-0 w-px bg-white/15" />
 
-          <div className="space-y-20">
-            {experiences.map((exp, idx) => (
-              <div key={`${exp.org}-${idx}`} className="relative">
-                {/* dot perfectly centered on the line */}
-                <span className="absolute left-0 top-2 -translate-x-1/2 h-4 w-4 rounded-full bg-white/60" />
+    <div className="space-y-20">
+      {experiences.map((exp, idx) => (
+        // IMPORTANT: give each block left padding, not the wrapper
+        <div key={`${exp.org}-${idx}`} className="relative pl-12">
+          {/* dot (same x as the line) */}
+          <span className="absolute left-6 top-2 -translate-x-1/2 h-4 w-4 rounded-full bg-white/60" />
 
-                <div className="flex justify-between items-start mb-4 gap-6">
-                  <div className="min-w-0">
-                    <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
-                      {exp.org}
-                    </div>
-                    <div className="text-base text-white">
-                      {exp.role}
-                      {exp.type ? (
-                        <span className="text-gray-500 text-sm"> · {exp.type}</span>
-                      ) : null}
-                    </div>
-                    {exp.location && (
-                      <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
-                    )}
-                  </div>
-
-                  <div className="text-sm text-gray-500 whitespace-nowrap">
-                    {exp.dates}
-                  </div>
-                </div>
-
-                <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
-                  {exp.summary.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="flex justify-between items-start mb-4 gap-6">
+            <div className="min-w-0">
+              <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
+                {exp.org}
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
-          Available for projects
+              <div className="text-base text-white">
+                {exp.role}
+                {exp.type ? (
+                  <span className="text-gray-500 text-sm"> · {exp.type}</span>
+                ) : null}
+              </div>
+
+              {exp.location ? (
+                <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
+              ) : null}
+            </div>
+
+            <div className="text-sm text-gray-500 whitespace-nowrap">{exp.dates}</div>
+          </div>
+
+          <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
+            {exp.summary.map((item) => (
+              <li key={item} className="flex gap-3">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+
+  <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
+    Available for projects
+  </div>
+</section>
 
       {/* Skills */}
       <section className="mb-20">
