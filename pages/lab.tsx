@@ -30,11 +30,11 @@ export default function Lab() {
           </span>
 
           {/* GIF */}
-          <img
-            src="/lab/dream-ar.gif"
-            alt="Dream AR travel experience"
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
-          />
+        <img
+  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/lab/dream-ar.gif`}
+  alt="Dream AR travel experience"
+  className="absolute inset-0 w-full h-full object-cover opacity-90"
+/>
 
           {/* Description */}
           <span className="absolute bottom-6 left-6 right-6 z-10 text-xs text-gray-400 leading-relaxed">
