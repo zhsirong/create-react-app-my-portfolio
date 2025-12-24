@@ -1,4 +1,5 @@
-<header className="relative w-full mt-6 mb-0 overflow-hidden rounded-2xl border border-white/10">
+
+
 import { useEffect, useMemo, useState } from 'react';
 
 type Social = { label: string; href: string; svg: JSX.Element };
