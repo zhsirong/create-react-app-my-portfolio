@@ -26,7 +26,7 @@ function Keycap({ children }: { children: React.ReactNode }) {
 
 export default function Header() {
   // 你可以改成自己的信息
-  const name = 'Sirong Zhao';
+  const name = 'Rosy Zhao';
   const title = 'Product / UX / Data';
   const currentCompanyName = 'Michigan Ross Business+Tech';
   const currentCompanyUrl = 'https://businesstech.bus.umich.edu/';
@@ -34,7 +34,7 @@ export default function Header() {
   const taglineLeft = 'Researching, prototyping, designing and testing by day,';
   const taglineRight = 'coding, no-coding, launching products by night';
 
-  const email = 'sirongzhao@email.com'; // 改成你的
+  const email = 'rosyzhao2001@gmail.com'; // 改成你的
   const [reveal, setReveal] = useState(false);
 
   // 按 “R” 显示邮箱（你截图里是 Press R）
