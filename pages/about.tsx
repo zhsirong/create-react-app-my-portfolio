@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 
@@ -214,66 +215,110 @@ function SkillPills({ skills }: { skills?: string[] }) {
   );
 }
 
-export default function About() {
+function WorkSwitcher({
+  mode,
+  setMode,
+}: {
+  mode: 'context' | 'list';
+  setMode: (m: 'context' | 'list') => void;
+}) {
   return (
-    <div className="max-w-4xl mx-auto px-6 mb-32">
-      <div className="top-gradient-bar" />
-      <Header />
+    <div className="mt-6 mb-10 grid grid-cols-2 rounded-2xl border border-white/10 bg-white/5 p-1">
+      <button
+        type="button"
+        onClick={() => setMode('context')}
+        className={`rounded-xl py-3 text-sm transition ${
+          mode === 'context' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'
+        }`}
+      >
+        Give me context
+      </button>
+      <button
+        type="button"
+        onClick={() => setMode('list')}
+        className={`rounded-xl py-3 text-sm transition ${
+          mode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'
+        }`}
+      >
+        Just show me the list
+      </button>
+    </div>
+  );
+}
 
-      {/* Work Experience – timeline */}
-      <section className="mb-24">
-  <h2 className="text-lg mb-12">Work experience</h2>
+function ContextView({ items }: { items: Experience[] }) {
+  return (
+    <div className="space-y-10 text-sm text-gray-400 leading-relaxed max-w-2xl">
+      {items.map((exp) => (
+        <div key={`${exp.org}-${exp.role}`}>
+          <p className="text-gray-300">
+            <span className="text-white">{exp.org}</span>
+            {exp.role ? <span className="text-gray-500"> — {exp.role}</span> : null}
+            {exp.location ? <span className="text-gray-600"> ({exp.location})</span> : null}
+            {exp.dates ? <span className="text-gray-600"> · {exp.dates}</span> : null}
+          </p>
 
-  {/* wrapper */}
-  <div className="relative">
-    {/* vertical line (fixed x position) */}
-    <div className="absolute left-6 top-0 bottom-0 w-px bg-white/15" />
-
-    <div className="space-y-20">
-      {experiences.map((exp, idx) => (
-        // IMPORTANT: give each block left padding, not the wrapper
-        <div key={`${exp.org}-${idx}`} className="relative pl-12">
-          {/* dot (same x as the line) */}
-          <span className="absolute left-6 top-2 -translate-x-1/2 h-4 w-4 rounded-full bg-white/60" />
-
-          <div className="flex justify-between items-start mb-4 gap-6">
-            <div className="min-w-0">
-              <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
-                {exp.org}
-              </div>
-
-              <div className="text-base text-white">
-                {exp.role}
-                {exp.type ? (
-                  <span className="text-gray-500 text-sm"> · {exp.type}</span>
-                ) : null}
-              </div>
-
-              {exp.location ? (
-                <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
-              ) : null}
-            </div>
-
-            <div className="text-sm text-gray-500 whitespace-nowrap">{exp.dates}</div>
-          </div>
-
-          <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
-            {exp.summary.map((item) => (
-              <li key={item} className="flex gap-3">
+          <ul className="mt-4 space-y-2">
+            {exp.summary.map((s) => (
+              <li key={s} className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                <span>{item}</span>
+                <span>{s}</span>
               </li>
             ))}
           </ul>
         </div>
       ))}
     </div>
-  </div>
+  );
+}
 
-  <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
-    Available for projects
-  </div>
-</section>
+function ListView({ items }: { items: Experience[] }) {
+  const rows = useMemo(() => {
+    return items.map((e) => ({
+      left: e.org,
+      right: e.dates,
+    }));
+  }, [items]);
+
+  return (
+    <div className="border-t border-white/10">
+      {rows.map((r) => (
+        <div
+          key={`${r.left}-${r.right}`}
+          className="grid grid-cols-[auto,1fr,auto] items-center gap-4 py-5 border-b border-white/5"
+        >
+          <div className="text-white">{r.left}</div>
+          <div className="h-px bg-white/10" />
+          <div className="text-gray-300 whitespace-nowrap">{r.right}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function About() {
+  const [mode, setMode] = useState<'context' | 'list'>('context');
+
+  return (
+    <div className="max-w-4xl mx-auto px-6 mb-32">
+      <div className="top-gradient-bar" />
+      <Header />
+
+      {/* Work Experience */}
+      <section className="mb-20">
+        <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
+
+        <WorkSwitcher mode={mode} setMode={setMode} />
+
+        {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
+
+        <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
+          <span className="h-2 w-2 rounded-full bg-green-400" />
+          <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
+            Available for projects
+          </span>
+        </div>
+      </section>
 
       {/* Skills */}
       <section className="mb-20">
