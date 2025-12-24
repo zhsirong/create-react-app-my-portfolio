@@ -31,7 +31,7 @@ export default function Lab() {
 
           {/* GIF */}
           <img
-            src="/lab/Dream-AR.gif"
+            src="/lab/dream-ar.gif"
             alt="Dream AR travel experience"
             className="absolute inset-0 w-full h-full object-cover opacity-90"
           />
