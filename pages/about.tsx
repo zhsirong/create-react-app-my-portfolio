@@ -189,7 +189,11 @@ const skillGroups = [
   },
 ];
 
-function SkillPills({ skills }) {
+type SkillPillsProps = {
+  skills?: string[];
+};
+
+function SkillPills({ skills }: SkillPillsProps) {
   if (!skills?.length) return null;
   return (
     <div className="flex flex-wrap gap-2">
@@ -204,6 +208,7 @@ function SkillPills({ skills }) {
     </div>
   );
 }
+
 
 export default function About() {
   return (
