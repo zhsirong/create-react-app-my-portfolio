@@ -213,7 +213,7 @@ function WorkSwitcher({
   setMode: (m: 'context' | 'list') => void;
 }) {
   return (
-    <div className="mt-8 mb-10 grid grid-cols-2 rounded-2xl border border-white/10 bg-white/5 p-1">
+    <div className="mt-8 mb-10 grid grid-cols-2 rounded-2xl border border-white/10 bg-white/5 p-1 max-w-xl">
       <button
         type="button"
         onClick={() => setMode('context')}
@@ -295,52 +295,52 @@ export default function About() {
     <div className="w-full mb-32">
       <div className="top-gradient-bar" />
 
-      {/* Header 依然可以全宽 */}
-      <div className="px-12">
+      {/* Header：保留全宽 */}
+      <div className="px-6 md:px-12">
         <Header />
       </div>
 
-      {/* 左对齐主内容 */}
-      <div className="pl-24 pr-12 max-w-4xl">
-        <section className="mb-24">
-          <h2 className="text-4xl md:text-5xl tracking-tight">
-            Where I&apos;ve worked
-          </h2>
+      {/* Header 之外：毛玻璃容器（左对齐，宽度自适应屏幕） */}
+      <div className="px-6 md:px-12 mt-10">
+        <div className="glass-panel glass-panel-topline">
+          {/* 左对齐主内容：不要 mx-auto，直接用 max-w + 留白 */}
+          <div className="max-w-5xl">
+            {/* Where I've worked */}
+            <section className="mb-24">
+              <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
 
-          <WorkSwitcher mode={mode} setMode={setMode} />
+              <WorkSwitcher mode={mode} setMode={setMode} />
 
-          {mode === 'context' ? (
-            <ContextView items={experiences} />
-          ) : (
-            <ListView items={experiences} />
-          )}
+              {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
 
-          <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
-            <span className="h-2 w-2 rounded-full bg-green-400" />
-            <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
-              Available for projects
-            </span>
-          </div>
-        </section>
-
-        {/* Skills */}
-        <section className="mb-20">
-          <h2 className="text-lg mb-8">Skills & capabilities</h2>
-          <div className="border-t border-white/10 pt-8 space-y-10">
-            {skillGroups.map((group) => (
-              <div key={group.title}>
-                <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
-                  {group.title}
-                </h3>
-                <SkillPills skills={group.skills} />
+              {/* Available for projects：白字 + 白色发光描边 */}
+              <div className="mt-12 inline-flex items-center gap-4 px-6 py-4 rounded-full text-white neon-pill bg-white/5 backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full neon-dot" />
+                <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
+                  Available for projects
+                </span>
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
 
-        <Navigation active="about" />
+            {/* Skills */}
+            <section className="mb-20">
+              <h2 className="text-lg mb-8">Skills & capabilities</h2>
+              <div className="border-t border-white/10 pt-8 space-y-10">
+                {skillGroups.map((group) => (
+                  <div key={group.title}>
+                    <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+                      {group.title}
+                    </h3>
+                    <SkillPills skills={group.skills} />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <Navigation active="about" />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
