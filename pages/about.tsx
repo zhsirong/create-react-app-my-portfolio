@@ -9,11 +9,10 @@ type Experience = {
   role?: string;
   location?: string;
   type?: string;
-  // 用于 “Give me context” 的叙述段落
   context: string;
-  // 用于你自己的 Work experience bullets（如果你还要保留）可不填
   summary?: string[];
-}
+};
+
 const experiences: Experience[] = [
   {
     org: 'Michigan Ross Business+Tech',
@@ -190,7 +189,7 @@ function SkillPills({ skills }: { skills?: string[] }) {
   );
 }
 
-/** 这个组件就是你截图里 “Wix↗” 的效果（hover 灰底 + 小箭头） */
+/** “Wix↗” 这种 inline link */
 function InlineLink({ children, href }: { children: React.ReactNode; href?: string }) {
   if (!href) return <span className="text-white">{children}</span>;
   return (
@@ -242,10 +241,7 @@ function ContextView({ items }: { items: Experience[] }) {
     <div className="space-y-10 text-base text-gray-200/90 leading-relaxed max-w-3xl">
       {items.map((exp) => (
         <p key={`${exp.org}-${exp.dates}`}>
-          {/* 让公司名可点击并且像截图那样带 ↗ */}
           {(() => {
-            // 把 “org” 换成 link 版本（其余句子照旧）
-            // 简单策略：把 context 里出现的 org 替换成占位渲染
             const parts = exp.context.split(exp.org);
             if (parts.length === 1) return exp.context;
 
@@ -296,38 +292,45 @@ export default function About() {
   const [mode, setMode] = useState<'context' | 'list'>('context');
 
   return (
-    <div className="max-w-4xl mx-auto px-6 mb-32">
+    <div className="w-full mb-32">
       <div className="top-gradient-bar" />
-      <Header />
 
-      {/* Where I've worked */}
-      <section className="mb-24">
-        <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
-        <WorkSwitcher mode={mode} setMode={setMode} />
-        {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
+      {/* Header 全宽 */}
+      <div className="px-6">
+        <Header />
+      </div>
 
-        <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
-          <span className="h-2 w-2 rounded-full bg-green-400" />
-          <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
-            Available for projects
-          </span>
-        </div>
-      </section>
+      {/* 主内容区：自适应 + 限宽阅读 */}
+      <div className="mx-auto max-w-5xl px-6">
+        {/* Where I've worked */}
+        <section className="mb-24">
+          <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
+          <WorkSwitcher mode={mode} setMode={setMode} />
+          {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
 
-      {/* Skills */}
-      <section className="mb-20">
-        <h2 className="text-lg mb-8">Skills & capabilities</h2>
-        <div className="border-t border-white/10 pt-8 space-y-10">
-          {skillGroups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
-              <SkillPills skills={group.skills} />
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
+            <span className="h-2 w-2 rounded-full bg-green-400" />
+            <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
+              Available for projects
+            </span>
+          </div>
+        </section>
 
-      <Navigation active="about" />
+        {/* Skills */}
+        <section className="mb-20">
+          <h2 className="text-lg mb-8">Skills & capabilities</h2>
+          <div className="border-t border-white/10 pt-8 space-y-10">
+            {skillGroups.map((group) => (
+              <div key={group.title}>
+                <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
+                <SkillPills skills={group.skills} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <Navigation active="about" />
+      </div>
     </div>
   );
 }
