@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 
 type Experience = {
   org: string;
+  orgUrl?: string;
   role: string;
   type?: string;
   dates: string;
@@ -14,6 +14,7 @@ type Experience = {
 const experiences: Experience[] = [
   {
     org: 'Michigan Ross Business+Tech',
+    orgUrl: 'https://businesstech.bus.umich.edu/',
     role: 'Generalist Final Top3 Team',
     type: 'Part-time',
     dates: 'Sep 2025 – Present',
@@ -26,6 +27,7 @@ const experiences: Experience[] = [
   },
   {
     org: 'Articares',
+    orgUrl: 'https://articares.com/',
     role: 'Product & Marketing Coordinator (Hands-On)',
     type: 'Full-time',
     dates: 'Feb 2025 – Sep 2025',
@@ -38,6 +40,7 @@ const experiences: Experience[] = [
   },
   {
     org: 'Initium.AI Inc.',
+    orgUrl: 'https://www.initium.ai/',
     role: 'UX Research Consultant',
     dates: 'Jan 2025 – May 2025',
     summary: [
@@ -45,8 +48,11 @@ const experiences: Experience[] = [
       'Synthesized findings into clear recommendations to improve clarity, trust, and task success.',
     ],
   },
+
+  // ✅ 图2：改成 Ross school of business Datathon
   {
-    org: 'University of Michigan – Ross School of Business',
+    org: 'Ross School of Business Datathon',
+    orgUrl: 'https://businesstech.bus.umich.edu/datathon/',
     role: 'Data Specialist | Ross Business + Tech Datathon',
     dates: 'Feb 2025',
     location: 'Ann Arbor, Michigan',
@@ -56,8 +62,11 @@ const experiences: Experience[] = [
       'Created a dashboard and quantitative visuals to communicate actionable recommendations.',
     ],
   },
+
+  // ✅ 图3 第一个：改为 SEAS
   {
-    org: 'University of Michigan',
+    org: 'University of Michigan School for Environment and Sustainability (SEAS)',
+    orgUrl: 'https://seas.umich.edu/',
     role: 'Marketing & Media Assistant',
     type: 'Part-time',
     dates: 'Oct 2023 – Aug 2024',
@@ -68,8 +77,11 @@ const experiences: Experience[] = [
       'Strengthened brand consistency and user experience through iterative edits and performance-driven refinements.',
     ],
   },
+
+  // ✅ 图3 第二个：改为 SAB + role 改为 Student Consultant
   {
-    org: 'University of Michigan',
+    org: 'University of Michigan Student Advisory Board (SAB)',
+    orgUrl: 'https://studentlife.umich.edu/article/student-advisory-board',
     role: 'Student Consultant',
     dates: 'Oct 2023 – May 2024',
     location: 'Ann Arbor, Michigan',
@@ -79,6 +91,7 @@ const experiences: Experience[] = [
       'Delivered iterative, inclusive UX recommendations in partnership with faculty and staff.',
     ],
   },
+
   {
     org: 'Qingyun Chinese Fork Music Club',
     role: 'Graphic / Project Designer',
@@ -128,12 +141,7 @@ const experiences: Experience[] = [
   },
 ];
 
-type SkillGroup = {
-  title: string;
-  skills: string[];
-};
-
-const skillGroups: SkillGroup[] = [
+const skillGroups = [
   {
     title: 'Product & Business',
     skills: [
@@ -215,90 +223,25 @@ function SkillPills({ skills }: { skills?: string[] }) {
   );
 }
 
-function WorkSwitcher({
-  mode,
-  setMode,
-}: {
-  mode: 'context' | 'list';
-  setMode: (m: 'context' | 'list') => void;
-}) {
-  return (
-    <div className="mt-6 mb-10 grid grid-cols-2 rounded-2xl border border-white/10 bg-white/5 p-1">
-      <button
-        type="button"
-        onClick={() => setMode('context')}
-        className={`rounded-xl py-3 text-sm transition ${
-          mode === 'context' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'
-        }`}
-      >
-        Give me context
-      </button>
-      <button
-        type="button"
-        onClick={() => setMode('list')}
-        className={`rounded-xl py-3 text-sm transition ${
-          mode === 'list' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'
-        }`}
-      >
-        Just show me the list
-      </button>
-    </div>
-  );
-}
-
-function ContextView({ items }: { items: Experience[] }) {
-  return (
-    <div className="space-y-10 text-sm text-gray-400 leading-relaxed max-w-2xl">
-      {items.map((exp) => (
-        <div key={`${exp.org}-${exp.role}`}>
-          <p className="text-gray-300">
-            <span className="text-white">{exp.org}</span>
-            {exp.role ? <span className="text-gray-500"> — {exp.role}</span> : null}
-            {exp.location ? <span className="text-gray-600"> ({exp.location})</span> : null}
-            {exp.dates ? <span className="text-gray-600"> · {exp.dates}</span> : null}
-          </p>
-
-          <ul className="mt-4 space-y-2">
-            {exp.summary.map((s) => (
-              <li key={s} className="flex gap-3">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                <span>{s}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ListView({ items }: { items: Experience[] }) {
-  const rows = useMemo(() => {
-    return items.map((e) => ({
-      left: e.org,
-      right: e.dates,
-    }));
-  }, [items]);
+function OrgLink({ name, href }: { name: string; href?: string }) {
+  if (!href) {
+    return <span className="text-white">{name}</span>;
+  }
 
   return (
-    <div className="border-t border-white/10">
-      {rows.map((r) => (
-        <div
-          key={`${r.left}-${r.right}`}
-          className="grid grid-cols-[auto,1fr,auto] items-center gap-4 py-5 border-b border-white/5"
-        >
-          <div className="text-white">{r.left}</div>
-          <div className="h-px bg-white/10" />
-          <div className="text-gray-300 whitespace-nowrap">{r.right}</div>
-        </div>
-      ))}
-    </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-1 rounded-md bg-white/5 px-2 py-1 text-white hover:bg-white/10 transition"
+    >
+      <span>{name}</span>
+      <span className="text-gray-400">↗</span>
+    </a>
   );
 }
 
 export default function About() {
-  const [mode, setMode] = useState<'context' | 'list'>('context');
-
   return (
     <div className="max-w-4xl mx-auto px-6 mb-32">
       <div className="top-gradient-bar" />
@@ -306,29 +249,50 @@ export default function About() {
 
       {/* Work Experience */}
       <section className="mb-20">
-        <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
+        <h2 className="text-lg mb-8">Work experience</h2>
 
-        <WorkSwitcher mode={mode} setMode={setMode} />
+        <div className="border-t border-white/10">
+          {experiences.map((exp, idx) => (
+            <div key={`${exp.org}-${exp.role}-${idx}`} className="py-6 border-b border-white/5">
+              <div className="flex items-baseline justify-between gap-6">
+                <div className="min-w-0">
+                  <div className="text-sm uppercase tracking-tighter">
+                    <OrgLink name={exp.org} href={exp.orgUrl} />
+                    <span className="text-gray-500"> — {exp.role}</span>
+                    {exp.type ? <span className="text-gray-600"> · {exp.type}</span> : null}
+                  </div>
+                </div>
 
-        {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
+                <div className="text-xs text-gray-500 whitespace-nowrap">{exp.dates}</div>
+              </div>
 
-        <div className="mt-12 inline-flex items-center gap-4 border border-green-900/50 bg-green-900/20 text-green-300 px-6 py-4 rounded-full">
-          <span className="h-2 w-2 rounded-full bg-green-400" />
-          <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
-            Available for projects
-          </span>
+              {exp.location ? <div className="mt-2 text-xs text-gray-500">{exp.location}</div> : null}
+
+              <ul className="mt-4 space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
+                {exp.summary.map((line) => (
+                  <li key={line} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
+          Available for projects
         </div>
       </section>
 
       {/* Skills */}
       <section className="mb-20">
         <h2 className="text-lg mb-8">Skills & capabilities</h2>
+
         <div className="border-t border-white/10 pt-8 space-y-10">
           {skillGroups.map((group) => (
             <div key={group.title}>
-              <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
-                {group.title}
-              </h3>
+              <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
               <SkillPills skills={group.skills} />
             </div>
           ))}
@@ -339,5 +303,3 @@ export default function About() {
     </div>
   );
 }
-
-
