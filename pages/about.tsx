@@ -16,7 +16,7 @@ const experiences = [
   },
   {
     org: 'Articares',
-    role: 'Product & Marketing Intern',
+    role: 'Product & Marketing Coordinator（Hands-On)',
     type: 'Full-time',
     dates: 'Feb 2025 – Sep 2025',
     location: 'Singapore',
