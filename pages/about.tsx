@@ -295,43 +295,49 @@ export default function About() {
     <div className="w-full mb-32">
       <div className="top-gradient-bar" />
 
-      {/* ✅ Header：全屏铺满（不要 px 包裹） */}
-      <div className="w-full">
-        <Header />
-      </div>
+      {/* ✅ 一个大容器：Header + Body 连在一起 */}
+      <div className="w-full px-4 md:px-8 mt-6">
+        <div className="site-shell">
+          {/* Header 区域（不再单独包 px） */}
+          <div className="shell-header">
+            <Header />
+          </div>
 
-      {/* ✅ Header 之外：红圈容器（两侧圆角 + 仅顶部线 + 无底部边框） */}
-      <div className="w-full mt-10 px-4 md:px-8">
-        <div className="glass-panel glass-panel-topline">
-          <div className="glass-panel-inner">
-            <section className="mb-24">
-              <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
+          {/* ✅ 分割线（你要完全无缝就删掉这一行） */}
+          <div className="shell-sep" />
 
-              <WorkSwitcher mode={mode} setMode={setMode} />
+          {/* Body 毛玻璃区域（红圈那块） */}
+          <div className="shell-body">
+            <div className="glass-panel-inner">
+              <section className="mb-24">
+                <h2 className="text-4xl md:text-5xl tracking-tight">Where I&apos;ve worked</h2>
 
-              {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
+                <WorkSwitcher mode={mode} setMode={setMode} />
 
-              <div className="mt-12 inline-flex items-center gap-4 px-6 py-4 rounded-full text-white neon-pill bg-white/5 backdrop-blur-md">
-                <span className="h-2 w-2 rounded-full neon-dot" />
-                <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
-                  Available for projects
-                </span>
-              </div>
-            </section>
+                {mode === 'context' ? <ContextView items={experiences} /> : <ListView items={experiences} />}
 
-            <section className="mb-20">
-              <h2 className="text-lg mb-8">Skills & capabilities</h2>
-              <div className="border-t border-white/10 pt-8 space-y-10">
-                {skillGroups.map((group) => (
-                  <div key={group.title}>
-                    <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
-                    <SkillPills skills={group.skills} />
-                  </div>
-                ))}
-              </div>
-            </section>
+                <div className="mt-12 inline-flex items-center gap-4 px-6 py-4 rounded-full text-white neon-pill bg-white/5 backdrop-blur-md">
+                  <span className="h-2 w-2 rounded-full neon-dot" />
+                  <span className="text-4xl md:text-5xl leading-none font-serif tracking-tight">
+                    Available for projects
+                  </span>
+                </div>
+              </section>
 
-            <Navigation active="about" />
+              <section className="mb-20">
+                <h2 className="text-lg mb-8">Skills & capabilities</h2>
+                <div className="border-t border-white/10 pt-8 space-y-10">
+                  {skillGroups.map((group) => (
+                    <div key={group.title}>
+                      <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
+                      <SkillPills skills={group.skills} />
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <Navigation active="about" />
+            </div>
           </div>
         </div>
       </div>
