@@ -200,4 +200,46 @@ body {
     0 0 6px rgba(34, 197, 94, 0.9),
     0 0 14px rgba(34, 197, 94, 0.6);
 }
+/* ✅ 外层大壳：Header + Body 共用一个边框与圆角 */
+.site-shell {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+/* Header 区域：不要再自己画边框（否则会双层） */
+.shell-header header {
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* 分割线：想无缝就删掉 About 里的 <div className="shell-sep" /> */
+.shell-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Body 区域：没有底框线（靠 site-shell 外框） */
+.shell-body {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* 你之前的 inner padding 继续用 */
+.glass-panel-inner {
+  padding: 28px 28px 34px;
+  max-width: 1200px;
+}
+
+@media (min-width: 1024px) {
+  .glass-panel-inner {
+    padding: 34px 38px 44px;
+    margin-left: 0; /* 左对齐 */
+  }
+}
 
