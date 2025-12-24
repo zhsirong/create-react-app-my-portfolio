@@ -84,3 +84,44 @@ body {
 ::selection {
   background: rgba(255, 255, 255, 0.2);
 }
+/* === About page glass panel (Header 以外区域) === */
+.glass-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.65);
+}
+
+/* 可选：让玻璃面板顶部边缘更亮一点（更像 Arsen） */
+.glass-panel-topline {
+  position: relative;
+}
+.glass-panel-topline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* Available for projects：白字 + 白色发光描边 */
+.neon-pill {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.14);
+}
+.neon-dot {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
+}
