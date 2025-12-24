@@ -198,18 +198,14 @@ const skillGroups: SkillGroup[] = [
   },
 ];
 
-type SkillPillsProps = {
-  skills?: string[];
-};
-
-function SkillPills({ skills }: SkillPillsProps) {
+function SkillPills({ skills }: { skills?: string[] }) {
   if (!skills?.length) return null;
   return (
     <div className="flex flex-wrap gap-2">
       {skills.map((s) => (
         <span
           key={s}
-          className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300 hover:border-white/20 transition"
+          className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300"
         >
           {s}
         </span>
@@ -222,50 +218,54 @@ export default function About() {
   return (
     <div className="max-w-4xl mx-auto px-6 mb-32">
       <div className="top-gradient-bar" />
-
       <Header />
 
-      {/* Work Experience (timeline blocks) */}
+      {/* Work Experience – timeline */}
       <section className="mb-24">
         <h2 className="text-lg mb-12">Work experience</h2>
 
-        <div className="relative border-l border-white/10 pl-10 space-y-20">
-          {experiences.map((exp, idx) => (
-            <div key={`${exp.org}-${exp.role}-${idx}`} className="relative">
-              {/* timeline dot */}
-              <span className="absolute -left-[9px] top-2 h-4 w-4 rounded-full bg-white/30" />
+        <div className="relative pl-12">
+          {/* vertical line */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-white/15" />
 
-              {/* header */}
-              <div className="flex justify-between items-start mb-4 gap-6">
-                <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
-                    {exp.org}
+          <div className="space-y-20">
+            {experiences.map((exp, idx) => (
+              <div key={`${exp.org}-${idx}`} className="relative">
+                {/* dot perfectly centered on the line */}
+                <span className="absolute left-0 top-2 -translate-x-1/2 h-4 w-4 rounded-full bg-white/60" />
+
+                <div className="flex justify-between items-start mb-4 gap-6">
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-widest text-gray-500 mb-1">
+                      {exp.org}
+                    </div>
+                    <div className="text-base text-white">
+                      {exp.role}
+                      {exp.type ? (
+                        <span className="text-gray-500 text-sm"> · {exp.type}</span>
+                      ) : null}
+                    </div>
+                    {exp.location && (
+                      <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
+                    )}
                   </div>
 
-                  <div className="text-base text-white">
-                    {exp.role}
-                    {exp.type ? <span className="text-gray-500 text-sm"> · {exp.type}</span> : null}
+                  <div className="text-sm text-gray-500 whitespace-nowrap">
+                    {exp.dates}
                   </div>
-
-                  {exp.location ? (
-                    <div className="mt-2 text-xs text-gray-500">{exp.location}</div>
-                  ) : null}
                 </div>
 
-                <div className="text-sm text-gray-500 whitespace-nowrap">{exp.dates}</div>
+                <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
+                  {exp.summary.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {/* bullets */}
-              <ul className="space-y-3 text-sm text-gray-400 leading-relaxed max-w-2xl">
-                {exp.summary.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="mt-10 inline-block border border-green-900/50 bg-green-900/20 text-green-400 px-3 py-1 rounded-full text-xs">
@@ -276,11 +276,12 @@ export default function About() {
       {/* Skills */}
       <section className="mb-20">
         <h2 className="text-lg mb-8">Skills & capabilities</h2>
-
         <div className="border-t border-white/10 pt-8 space-y-10">
           {skillGroups.map((group) => (
             <div key={group.title}>
-              <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">{group.title}</h3>
+              <h3 className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+                {group.title}
+              </h3>
               <SkillPills skills={group.skills} />
             </div>
           ))}
@@ -291,4 +292,5 @@ export default function About() {
     </div>
   );
 }
+
 
