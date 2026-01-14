@@ -22,14 +22,14 @@ const projects: Project[] = [
     id: "calmer",
     title: "CalmER",
     desc: "Designed an AI-assisted healthcare experience focused on reducing anxiety, improving clarity, and supporting decision-making in high-stress environments.",
-    image: "/images/calmer.jpg",
+    image: "images/calmer.jpg",
     date: "Mar 2025",
   },
   {
     id: "boa-redesign",
     title: "Bank of America App Redesign",
     desc: "Redesigned the Bank of America mobile app with a focus on financial clarity, trust-building UI patterns, and improved information hierarchy.",
-    image: "/images/boa-redesign.jpg",
+    image: "images/boa-redesign.jpg",
     date: "Feb 2025",
   },
 ];
