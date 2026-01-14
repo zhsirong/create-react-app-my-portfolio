@@ -4,53 +4,51 @@ type Props = {
   id: string;
   title: string;
   desc: string;
-  image?: string; // 新增：项目封面图
-  date: string;   // 新增：日期
+  image?: string;
+  date: string;
 };
 
 export default function ProjectCard({ id, title, desc, image, date }: Props) {
   return (
-    <div className="group cursor-pointer w-full">
+    <div className="group cursor-pointer w-full mb-12">
       {/* 1. 大图展示区域 */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[24px] bg-[#0c0c0c] border border-white/[0.06] transition-all duration-500 group-hover:border-white/[0.15] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[28px] bg-[#0c0c0c] border border-white/[0.06] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:border-white/[0.2] group-hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)]">
         {image ? (
           <img
             src={image}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="h-full w-full object-cover saturate-[0.9] transition-all duration-1000 ease-out group-hover:scale-[1.05] group-hover:saturate-[1.1]"
           />
         ) : (
-          /* 占位图状态：如果没有图片，显示一个优雅的渐变 */
           <div className="h-full w-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center">
             <span className="text-zinc-800 font-serif italic text-4xl">{title[0]}</span>
           </div>
         )}
         
-        {/* 覆盖层：增加微弱的内部阴影，让图片更有质感 */}
-        <div className="absolute inset-0 ring-1 ring-inset ring-white/[0.05] rounded-[24px]" />
+        {/* 内部高光边缘 */}
+        <div className="absolute inset-0 ring-1 ring-inset ring-white/[0.1] rounded-[28px] pointer-events-none" />
       </div>
 
-      {/* 2. 信息对齐行 (标题 + 描述 + 日期) */}
-      <div className="mt-5 px-1 flex flex-row items-baseline justify-between gap-4">
-        <div className="flex flex-row items-baseline gap-4 overflow-hidden">
-          {/* 项目标题 */}
-          <h3 className="text-[15px] font-medium text-white/90 shrink-0 tracking-tight">
+      {/* 2. 强化后的信息区 */}
+      <div className="mt-8 px-2 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="flex flex-col gap-2 overflow-hidden">
+          {/* 项目标题：字号加大到 22px，极粗，增加悬浮位移感 */}
+          <h3 className="text-[22px] font-bold text-white tracking-tight transition-all duration-500 group-hover:translate-x-1">
             {title}
           </h3>
           
-          {/* 分隔点或短横线 (可选) */}
-          <span className="text-white/10 text-[12px]">—</span>
-
-          {/* 项目描述：限制为单行，超出显示省略号 */}
-          <p className="text-[13px] text-gray-500 font-normal truncate leading-none">
+          {/* 项目描述：作为副标题，字号保持精致，颜色调淡以突出上方标题 */}
+          <p className="text-[14px] text-zinc-500 font-normal leading-relaxed max-w-[90%] transition-colors duration-300 group-hover:text-zinc-300">
             {desc}
           </p>
         </div>
 
-        {/* 日期：靠右对齐，使用等宽字体增强设计感 */}
-        <span className="text-[11px] font-mono text-zinc-600 uppercase tracking-widest shrink-0">
-          {date}
-        </span>
+        {/* 日期：靠右对齐，保持极简感 */}
+        <div className="shrink-0 mb-1">
+          <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em] antialiased">
+            {date}
+          </span>
+        </div>
       </div>
     </div>
   );
