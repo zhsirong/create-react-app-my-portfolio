@@ -26,11 +26,11 @@ const projects: Project[] = [
     date: "Mar 2025",
   },
   {
-    id: "sapera",
-    title: "Sapera",
-    desc: "Lead the design of a project management platform.",
-    image: "/images/sapera-cover.jpg",
-    date: "Jan 2024",
+    id: "boa-redesign",
+    title: "Bank of America App Redesign",
+    desc: "Redesigned the Bank of America mobile app with a focus on financial clarity, trust-building UI patterns, and improved information hierarchy.",
+    image: "/images/boa-redesign.jpg",
+    date: "Feb 2025",
   },
   {
     id: "olx",
