@@ -19,11 +19,11 @@ type ChangelogItem = {
 // 项目数据（按你截图里的结构：id/title/desc/image/date）
 const projects: Project[] = [
   {
-    id: "zori",
-    title: "Zori",
-    desc: "Founding designer at the startup where we help people find professionals by recommendation.",
-    image: "/images/zori-cover.jpg",
-    date: "Feb 2024",
+    id: "calmer",
+    title: "CalmER",
+    desc: "Designed an AI-assisted healthcare experience focused on reducing anxiety, improving clarity, and supporting decision-making in high-stress environments.",
+    image: "/images/CalmER.jpg",
+    date: "Mar 2025",
   },
   {
     id: "sapera",
