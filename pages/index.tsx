@@ -32,13 +32,6 @@ const projects: Project[] = [
     image: "/images/boa-redesign.jpg",
     date: "Feb 2025",
   },
-  {
-    id: "olx",
-    title: "2+ items in order at OLX",
-    desc: "Designed a way to purchase up to 5 items per deal on a platform that historically supported just 1.",
-    image: "/images/olx-cover.jpg",
-    date: "Dec 2023",
-  },
 ];
 
 const changelog: ChangelogItem[] = [
