@@ -33,11 +33,12 @@ export default function Lab() {
             Dream AR
           </span>
 
-          <img
-            src={`${basePath}/lab/dream-ar.gif`}
-            alt="Dream AR travel experience"
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
-          />
+      <img
+  src="lab/dream-ar.gif"
+  alt="Dream AR travel experience"
+  className="absolute inset-0 w-full h-full object-cover opacity-90"
+/>
+
 
           <span className="absolute bottom-6 left-6 right-6 z-10 text-xs text-gray-400 leading-relaxed">
             Self-designed AR travel experience with dynamic visual effects.
