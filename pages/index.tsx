@@ -22,7 +22,7 @@ const projects: Project[] = [
     id: "calmer",
     title: "CalmER",
     desc: "Designed an AI-assisted healthcare experience focused on reducing anxiety, improving clarity, and supporting decision-making in high-stress environments.",
-    image: "/images/CalmER.jpg",
+    image: "/images/calmer.jpg",
     date: "Mar 2025",
   },
   {
